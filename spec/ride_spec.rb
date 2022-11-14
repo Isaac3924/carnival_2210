@@ -53,4 +53,23 @@ RSpec.describe Ride do
       expect(visitor1.spending_money).to eq(10)
     end
 
+    it 'has a method to total its rider count' do
+      visitor1.add_preferences(:gentle)
+      visitor2.add_preferences(:gentle)
+      visitor2.add_preferences(:thrilling)
+      visitor3.add_preferences(:thrilling)
+      ride.board_rider(visitor1)
+
+      expect(ride.total_count).to eq(1)
+
+      3.times do ride.board_rider(visitor2) end
+      expect(ride.total_count).to eq(4)
+
+      ride3.board_rider(visitor3)
+      expect(ride3.total_count).to eq(1)
+
+      ride3.board_rider(visitor1)
+      expect(ride3.total_count).to eq(1)
+    end
+
 end

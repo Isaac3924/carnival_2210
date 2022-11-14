@@ -30,5 +30,9 @@ class Ride
   def check_height_and_prefs(rider)
     rider.tall_enough(@min_height) && rider.preferences.include?(@excitement)
   end
+
+  def total_count
+    rider_log.values.sum
+  end
         
 end
