@@ -29,5 +29,23 @@ class Carnival
     rides.sum { |ride| ride.total_revenue }
   end
 
+  def number_of_visitors
+    list_visitors.count
+  end
 
+  def list_visitors
+    rides.flat_map do |ride|
+      ride.rider_log.keys
+    end.uniq
+  end
+
+  # def fav_rides
+  #   Hash.new[list_visitors] = vis_favs
+  # end
+
+  # def vis_favs
+  #   rides.max_by do |ride, rider|
+  #     ride.rider_log[rider]
+  #   end
+  # end
 end

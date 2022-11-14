@@ -78,7 +78,57 @@ RSpec.describe Carnival do
     5.times do ride.board_rider(visitor1)
     end
     expect(carnival.total_revenue).to eq(9)
+  end
 
+  it 'has a method to find the number of visitors' do
+    visitor1.add_preferences(:gentle)
+    visitor2.add_preferences(:gentle)
+    visitor3.add_preferences(:thrilling)
+    carnival.add_ride(ride)
+    carnival.add_ride(ride2)
+    carnival.add_ride(ride3)
+
+    ride3.board_rider(visitor3)
+    expect(carnival.number_of_visitors).to eq(1)
+
+    2.times do ride.board_rider(visitor1)
+    end
+    expect(carnival.number_of_visitors).to eq(2)
+
+    ride.board_rider(visitor2)
+    expect(carnival.number_of_visitors).to eq(3)
+
+    visitor1.add_preferences(:thrilling)
+    ride3.board_rider(visitor1)
+    expect(carnival.number_of_visitors).to eq(3)
+  end
+
+  xit 'has a method to find visitors favorite ride' do
+    visitor1.add_preferences(:gentle)
+    visitor1.add_preferences(:thrilling)
+    visitor2.add_preferences(:gentle)
+    visitor3.add_preferences(:thrilling)
+    carnival.add_ride(ride)
+    carnival.add_ride(ride2)
+    carnival.add_ride(ride3)
+
+    ride.board_rider(visitor1)
+    expect(carnival.fav_rides).to eq({visitor1 => ride})
+
+    ride.goard_rider(visitor2)
+    expect(carnival.fav_rides).to eq({visitor1 => ride,
+                                      visitor2 => ride})
+
+    ride3.board_rider(visitor3)
+    expect(carnival.fav_rides).to eq({visitor1 => ride,
+                                      visitor2 => ride,
+                                      visitor3 => ride3})
+
+    2.times do ride3.board_rider(visitor1)
+    end
+    expect(carnival.fav_rides).to eq({visitor1 => ride3,
+                                      visitor2 => ride,
+                                      visitor3 => ride3})
   end
 
 
